@@ -1,0 +1,93 @@
+:root {
+  --bg: #ffffff;
+  --surface: #f5f5f7;
+  --text: #1d1d1f;
+  --muted: #6e6e73;
+  --border: #e3e3e6;
+  --accent: #0a84ff;
+  --maxw: 760px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --text: #f5f5f7;
+    --muted: #98989d;
+    --border: #2c2c2e;
+    --accent: #0a84ff;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  font-size: 16px;
+  word-break: break-word;
+}
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+header.site {
+  border-bottom: 1px solid var(--border);
+  padding: 20px;
+}
+header.site .inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+header.site .app { font-weight: 700; font-size: 18px; }
+header.site .en { color: var(--muted); font-size: 14px; }
+
+h1 { font-size: 26px; line-height: 1.4; margin: 8px 0 4px; }
+h2 { font-size: 20px; margin: 40px 0 10px; padding-top: 8px; }
+h3 { font-size: 16px; margin: 24px 0 6px; color: var(--muted); font-weight: 700; }
+p, li { font-size: 16px; }
+ul { padding-left: 1.3em; }
+li { margin: 6px 0; }
+.updated { color: var(--muted); font-size: 14px; margin-top: 0; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin: 14px 0;
+  color: inherit;
+}
+.card:hover { border-color: var(--accent); text-decoration: none; }
+.card .t { font-weight: 700; font-size: 17px; }
+.card .d { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+.lang-note {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 14px;
+  color: var(--muted);
+  margin: 20px 0;
+}
+.sep { border: none; border-top: 1px solid var(--border); margin: 56px 0 8px; }
+footer {
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+  padding: 24px 20px 48px;
+}
+.backlink { display: inline-block; margin-bottom: 8px; font-size: 14px; }
