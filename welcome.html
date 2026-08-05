@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使い方 / モジブラ</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/test-style.css">
+<style>
+  /* テスト用の見た目は内部スタイルに置く。
+     スタイルシートをブロックしてもこのページが読める状態を保つため。 */
+  @font-face {
+    font-family: "MojiTestFont";
+    src: url("assets/test-font.woff2") format("woff2");
+    font-display: block;
+  }
+  .steps { counter-reset: step; padding-left: 0; list-style: none; }
+  .steps li {
+    counter-increment: step; position: relative;
+    padding-left: 38px; margin: 14px 0;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 2px;
+    width: 26px; height: 26px; border-radius: 13px;
+    background: #0a84ff; color: #fff;
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .test-box {
+    border: 1px solid #d0d0d4; border-radius: 12px;
+    padding: 16px; margin: 12px 0;
+    background: #fafafa;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .test-box.ok { border-color: #34c759; background: #e8f8ed; }
+  .test-box .note { font-size: 14px; color: #6e6e73; }
+  .test-box img, .test-box video {
+    max-width: 100%; height: auto; border-radius: 8px; display: block;
+  }
+  .font-line { font-size: 15px; margin: 6px 0; }
+  .font-line .label { color: #6e6e73; font-size: 13px; display: block; }
+  .font-webfont { font-family: "MojiTestFont", ui-monospace, monospace; }
+  .font-plain { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }
+  #css-test .on { display: none; }
+  #css-test .off { display: inline; }
+  .verdict { font-size: 14px; color: #6e6e73; margin: 6px 0 0; }
+  .verdict b { color: #1d1d1f; }
+  .kbd {
+    display: inline-block; padding: 1px 7px; border-radius: 6px;
+    background: #ececf0; border: 1px solid #d8d8dc;
+    font-size: 14px; font-weight: 600;
+  }
+  .pro-tag {
+    display: inline-block; font-size: 12px; font-weight: 700;
+    color: #fff; background: #ff9500;
+    border-radius: 5px; padding: 1px 7px; margin-left: 6px;
+    vertical-align: 2px;
+  }
+  .toc { padding-left: 1.2em; }
+  @media (prefers-color-scheme: dark) {
+    .test-box { border-color: #2c2c2e; background: #131315; }
+    .test-box.ok { border-color: #34c759; background: #0e2a17; }
+    .test-box .note, .font-line .label, .verdict { color: #98989d; }
+    .verdict b { color: #f5f5f7; }
+    .kbd { background: #2c2c2e; border-color: #3a3a3c; color: #f5f5f7; }
+  }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="inner">
+    <span class="app">モジブラ</span>
+    <span class="en">T-Browser</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>モジブラへようこそ</h1>
+  <p class="updated">
+    このページは<strong>使い方の説明</strong>と、<strong>ブロックがちゃんと効いているかをその場で確認できるテスト</strong>を兼ねています。<br>
+    A quick guide plus a live test page for each blocking rule.
+  </p>
+
+  <div class="lang-note">
+    ブックマークに追加しておくと、設定を変えたあとの確認にいつでも戻ってこられます。
+    下のバーの <span class="kbd">☆</span> から追加できます。
+  </div>
+
+  <h2>モジブラは何をするアプリ？</h2>
+  <p>
+    Web ページの<strong>画像・動画などの読み込みを最初から遮断</strong>して、
+    通信量（ギガ）を節約するブラウザです。文字は普通に読めるので、
+    ニュースや調べものはそのまま使えます。
+  </p>
+  <p>
+    最初は<strong>画像・動画/音声・フォント・ポップアップ</strong>がブロックされ、
+    <strong>スタイルシートと JavaScript は許可</strong>されています。
+    ページが崩れて読めないときは、後述の設定で個別に緩められます。
+  </p>
+
+  <h2>画面の見かた</h2>
+  <p>操作はすべて<strong>画面の下</strong>にまとまっています。</p>
+  <ul>
+    <li><span class="kbd">ドメイン名</span> … タップすると URL 全体が出て編集できます。検索したい言葉をそのまま入れても OK です。</li>
+    <li><span class="kbd">↻</span> … 再読み込み（読み込み中は中止）。ページを下に引っ張っても再読み込みできます。</li>
+    <li><span class="kbd">☆</span> … このページをブックマークに追加／解除。</li>
+    <li><span class="kbd">‹</span> <span class="kbd">›</span> … 戻る／進む。</li>
+    <li><span class="kbd">⌂</span> … ホーム（検索欄とブックマークの一覧）。</li>
+    <li><span class="kbd">1</span> … タブの一覧。数字は開いているタブの数です。</li>
+    <li><span class="kbd">•••</span> … 設定、このサイトの設定、このページで JavaScript を許可して再読込。</li>
+  </ul>
+
+  <h2>ブロックを試してみる</h2>
+  <p>
+    ここから下は<strong>実際に読み込みを試すテスト</strong>です。
+    <span class="kbd">•••</span> → <strong>設定</strong>でトグルを切り替えてから、
+    このページを再読み込みすると結果が変わります。
+  </p>
+  <ul class="toc">
+    <li><a href="#t-image">画像</a></li>
+    <li><a href="#t-media">メディア（動画・音声）</a></li>
+    <li><a href="#t-font">フォント</a></li>
+    <li><a href="#t-css">スタイルシート</a></li>
+    <li><a href="#t-js">JavaScript</a></li>
+    <li><a href="#t-popup">ポップアップ</a></li>
+  </ul>
+
+  <h3 id="t-image">1. 画像</h3>
+  <div class="test-box">
+    <img src="assets/test-image.png" width="720" height="405" alt="テスト画像">
+  </div>
+  <p class="verdict">
+    <b>ブロック中:</b> 破線の四角いプレースホルダになります。<br>
+    <b>許可中:</b> 「画像が表示されています」と書かれた青い画像が出ます。
+  </p>
+
+  <h3 id="t-media">2. メディア（動画・音声）</h3>
+  <div class="test-box">
+    <video src="assets/test-video.mp4" width="720" height="406"
+           controls muted loop playsinline preload="metadata"></video>
+  </div>
+  <p class="verdict">
+    <b>ブロック中:</b> 再生できず、真っ黒のまま／読み込みエラーになります。<br>
+    <b>許可中:</b> 再生ボタンを押すと「動画が再生されています」と表示されます。
+  </p>
+
+  <h3 id="t-font">3. フォント</h3>
+  <div class="test-box">
+    <div class="font-line">
+      <span class="label">Web フォント指定あり</span>
+      <span class="font-webfont">MOJI BROWSER 12345</span>
+    </div>
+    <div class="font-line">
+      <span class="label">比較用（端末のフォント）</span>
+      <span class="font-plain">MOJI BROWSER 12345</span>
+    </div>
+  </div>
+  <p class="verdict">
+    <b>ブロック中:</b> 上下 2 行が<strong>同じ見た目</strong>になります（端末のフォントで代替）。<br>
+    <b>許可中:</b> 上の行だけドット絵のようなピクセルフォントになります。
+  </p>
+
+  <h3 id="t-css">4. スタイルシート</h3>
+  <div class="test-box" id="css-test">
+    <strong class="on">✅ 外部スタイルシートが適用されています</strong>
+    <strong class="off">🚫 外部スタイルシートはブロックされています</strong>
+    <span class="note">枠が緑色なら読み込めています。</span>
+  </div>
+  <p class="verdict">
+    スタイルシートをブロックすると、<strong>このページ全体の見た目も簡素になります</strong>。
+    文字は読めますが、レイアウトが崩れるサイトも多いので、常時ブロックはあまりおすすめしません。
+  </p>
+
+  <h3 id="t-js">5. JavaScript</h3>
+  <div class="test-box" id="js-test">
+    <strong>🚫 外部スクリプトはブロックされています</strong>
+    <span class="note">JavaScript のブロックが ON か、スクリプトを読み込めませんでした。</span>
+  </div>
+  <script src="assets/test-script.js"></script>
+  <p class="verdict">
+    JavaScript を止めると通信量はかなり減りますが、<strong>動かなくなるサイトが多い</strong>です。
+    普段は許可のままにして、必要なときだけ止めるのがおすすめです。
+    逆に「このページだけ許可したい」ときは <span class="kbd">•••</span> →
+    <strong>このページで JavaScript を許可して再読込</strong> が使えます<span class="pro-tag">Pro</span>。
+  </p>
+
+  <h3 id="t-popup">6. ポップアップ</h3>
+  <div class="test-box">
+    <a href="popup-target.html" target="_blank" rel="noopener">別ウインドウで開くリンクを試す</a>
+    <span class="note">タップすると新しいウインドウを開こうとします。</span>
+  </div>
+  <p class="verdict">
+    <b>ブロック中:</b> 画面下に「ポップアップをブロックしました」と出て、開きません。<br>
+    <b>許可中:</b> 新しいタブでページが開きます。
+  </p>
+
+  <hr class="sep">
+
+  <h2>設定の変えかた</h2>
+  <ol class="steps">
+    <li>画面下の <span class="kbd">•••</span> をタップ</li>
+    <li><strong>設定</strong>を選ぶ</li>
+    <li>「ブロックするリソース」の各トグルを切り替える（変更はすぐ反映されます）</li>
+    <li>このページに戻って <span class="kbd">↻</span> で再読み込みし、結果を見る</li>
+  </ol>
+  <p>
+    検索エンジンは <strong>Google</strong> と <strong>Yahoo! JAPAN</strong> を切り替えられます。
+  </p>
+
+  <h2>Pro でできること</h2>
+  <ul>
+    <li><strong>長押しで画像を表示</strong><span class="pro-tag">Pro</span><br>
+      ブロックされた画像を長押しすると、<strong>その画像だけ</strong>読み込みます。
+      ページを移動すれば元のブロック状態に戻るので、通信量は最小限で済みます。
+      iOS 標準のリンクプレビューを優先したい場合は、設定で切り替えられます。</li>
+    <li><strong>サイトごとの設定</strong><span class="pro-tag">Pro</span><br>
+      「このサイトだけ画像を許可」のように、ドメイン単位で例外を保存できます。
+      <span class="kbd">•••</span> → <strong>このサイトの設定</strong>から。</li>
+    <li><strong>このページだけ JavaScript を許可</strong><span class="pro-tag">Pro</span><br>
+      表示が崩れたページを、その場だけ JavaScript ありで読み直せます。
+      次にページを移動すると自動で元に戻ります。</li>
+  </ul>
+
+  <h2>よくある質問</h2>
+  <h3>ページが真っ白／崩れて読めない</h3>
+  <p>
+    スタイルシートか JavaScript のブロックが原因のことが多いです。
+    <span class="kbd">•••</span> → <strong>このページで JavaScript を許可して再読込</strong><span class="pro-tag">Pro</span>
+    を試すか、設定で該当のトグルを OFF にしてください。
+  </p>
+  <h3>ログインできない</h3>
+  <p>JavaScript のブロックを OFF にしてお試しください。</p>
+  <h3>どれくらい通信量が減るの？</h3>
+  <p>
+    サイトによりますが、画像の多いページでは読み込み量の大半が画像です。
+    まずは<strong>画像だけブロック</strong>して使うのが、崩れにくく効果も大きいバランスです。
+  </p>
+
+  <hr class="sep">
+  <p>
+    <a class="backlink" href="index.html">← トップへ</a><br>
+    <a href="privacy.html">プライバシーポリシー</a> ／
+    <a href="support.html">サポート・お問い合わせ</a>
+  </p>
+
+  <footer>
+    © 2026 モジブラ / T-Browser<br>
+    <span style="font-size:12px">
+      テスト用フォント: Press Start 2P (SIL Open Font License 1.1) —
+      <a href="assets/OFL.txt">ライセンス</a>
+    </span>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,11 @@
+/* スタイルシートのブロック検証用。
+   このファイルが読み込めた＝スタイルシートはブロックされていない。 */
+#css-test {
+  background: #e8f8ed !important;
+  border-color: #34c759 !important;
+}
+#css-test .on { display: inline !important; }
+#css-test .off { display: none !important; }
+@media (prefers-color-scheme: dark) {
+  #css-test { background: #0e2a17 !important; }
+}
