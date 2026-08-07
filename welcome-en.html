@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting Started / T-Browser</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/test-style.css">
+<style>
+  /* テスト用の見た目は内部スタイルに置く。
+     スタイルシートをブロックしてもこのページが読める状態を保つため。 */
+  @font-face {
+    font-family: "MojiTestFont";
+    src: url("assets/test-font.woff2") format("woff2");
+    font-display: block;
+  }
+  .steps { counter-reset: step; padding-left: 0; list-style: none; }
+  .steps li {
+    counter-increment: step; position: relative;
+    padding-left: 38px; margin: 14px 0;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 2px;
+    width: 26px; height: 26px; border-radius: 13px;
+    background: #0a84ff; color: #fff;
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .test-box {
+    border: 1px solid #d0d0d4; border-radius: 12px;
+    padding: 16px; margin: 12px 0;
+    background: #fafafa;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .test-box.ok { border-color: #34c759; background: #e8f8ed; }
+  .test-box .note { font-size: 14px; color: #6e6e73; }
+  .test-box img, .test-box video {
+    max-width: 100%; height: auto; border-radius: 8px; display: block;
+  }
+  .font-line { font-size: 15px; margin: 6px 0; }
+  .font-line .label { color: #6e6e73; font-size: 13px; display: block; }
+  .font-webfont { font-family: "MojiTestFont", ui-monospace, monospace; }
+  .font-plain { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }
+  #css-test .on { display: none; }
+  #css-test .off { display: inline; }
+  .verdict { font-size: 14px; color: #6e6e73; margin: 6px 0 0; }
+  .verdict b { color: #1d1d1f; }
+  .kbd {
+    display: inline-block; padding: 1px 7px; border-radius: 6px;
+    background: #ececf0; border: 1px solid #d8d8dc;
+    font-size: 14px; font-weight: 600;
+  }
+  .pro-tag {
+    display: inline-block; font-size: 12px; font-weight: 700;
+    color: #fff; background: #ff9500;
+    border-radius: 5px; padding: 1px 7px; margin-left: 6px;
+    vertical-align: 2px;
+  }
+  .toc { padding-left: 1.2em; }
+  @media (prefers-color-scheme: dark) {
+    .test-box { border-color: #2c2c2e; background: #131315; }
+    .test-box.ok { border-color: #34c759; background: #0e2a17; }
+    .test-box .note, .font-line .label, .verdict { color: #98989d; }
+    .verdict b { color: #f5f5f7; }
+    .kbd { background: #2c2c2e; border-color: #3a3a3c; color: #f5f5f7; }
+  }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="inner">
+    <span class="app">T-Browser</span>
+    <span class="en">モジブラ</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>Welcome to T-Browser</h1>
+  <p class="updated">
+    This page is both a <strong>quick guide</strong> and a
+    <strong>live test you can run right now</strong> to check that each blocking rule works.<br>
+    <a href="welcome.html">日本語版</a>
+  </p>
+
+  <div class="lang-note">
+    Add this page to your bookmarks and you can come back to it whenever you change a setting.
+    Tap <span class="kbd">☆</span> in the bar at the bottom.
+  </div>
+
+  <h2>What does T-Browser do?</h2>
+  <p>
+    It is a browser that <strong>blocks images, video, and other heavy resources before they load</strong>,
+    so you use less mobile data. Text still reads normally, so news and research work as usual.
+  </p>
+  <p>
+    Out of the box it blocks <strong>images, media (video &amp; audio), fonts, and pop-ups</strong>,
+    while <strong>stylesheets and JavaScript are allowed</strong>.
+    If a page breaks and you cannot read it, you can loosen any of these individually in Settings.
+  </p>
+
+  <h2>Getting around</h2>
+  <p>Everything you need is at the <strong>bottom of the screen</strong>.</p>
+  <ul>
+    <li><span class="kbd">domain name</span> … Tap it to see and edit the full URL. You can also type a search term here.</li>
+    <li><span class="kbd">↻</span> … Reload (or stop, while loading). You can also pull the page down to refresh.</li>
+    <li><span class="kbd">☆</span> … Add or remove this page from your bookmarks.</li>
+    <li><span class="kbd">‹</span> <span class="kbd">›</span> … Back and forward.</li>
+    <li><span class="kbd">⌂</span> … Home, with the search field and your bookmarks.</li>
+    <li><span class="kbd">1</span> … Your tabs. The number is how many are open.</li>
+    <li><span class="kbd">•••</span> … Settings, per-site settings, and allowing JavaScript on the current page.</li>
+  </ul>
+
+  <h2>Try the blocking</h2>
+  <p>
+    Everything below <strong>actually tries to load something</strong>.
+    Change a toggle in <span class="kbd">•••</span> → <strong>Settings</strong>,
+    then reload this page to see the result change.
+  </p>
+  <ul class="toc">
+    <li><a href="#t-image">Images</a></li>
+    <li><a href="#t-media">Media (video &amp; audio)</a></li>
+    <li><a href="#t-font">Fonts</a></li>
+    <li><a href="#t-css">Stylesheets</a></li>
+    <li><a href="#t-js">JavaScript</a></li>
+    <li><a href="#t-popup">Pop-ups</a></li>
+  </ul>
+
+  <h3 id="t-image">1. Images</h3>
+  <div class="test-box">
+    <img src="assets/test-image-en.png" width="720" height="405" alt="Test image">
+  </div>
+  <p class="verdict">
+    <b>Blocked:</b> you get a dashed placeholder box.<br>
+    <b>Allowed:</b> a blue image reading “Image loaded” appears.
+  </p>
+
+  <h3 id="t-media">2. Media (video &amp; audio)</h3>
+  <div class="test-box">
+    <video src="assets/test-video-en.mp4" width="720" height="406"
+           controls muted loop playsinline preload="metadata"></video>
+  </div>
+  <p class="verdict">
+    <b>Blocked:</b> it will not play — the frame stays black or fails to load.<br>
+    <b>Allowed:</b> pressing play shows “Video is playing”.
+  </p>
+
+  <h3 id="t-font">3. Fonts</h3>
+  <div class="test-box">
+    <div class="font-line">
+      <span class="label">With a web font</span>
+      <span class="font-webfont">MOJI BROWSER 12345</span>
+    </div>
+    <div class="font-line">
+      <span class="label">For comparison (system font)</span>
+      <span class="font-plain">MOJI BROWSER 12345</span>
+    </div>
+  </div>
+  <p class="verdict">
+    <b>Blocked:</b> both lines look <strong>the same</strong> — the system font is used for each.<br>
+    <b>Allowed:</b> only the top line turns into a pixel font.
+  </p>
+
+  <h3 id="t-css">4. Stylesheets</h3>
+  <div class="test-box" id="css-test">
+    <strong class="on">✅ The external stylesheet was applied</strong>
+    <strong class="off">🚫 The external stylesheet is blocked</strong>
+    <span class="note">A green border means it loaded.</span>
+  </div>
+  <p class="verdict">
+    Blocking stylesheets also <strong>strips the styling from this page</strong>.
+    Text stays readable, but many sites will look broken, so leaving this on all the time
+    is usually not worth it.
+  </p>
+
+  <h3 id="t-js">5. JavaScript</h3>
+  <div class="test-box" id="js-test"
+       data-ok-title="The external script ran"
+       data-ok-note="JavaScript blocking is off.">
+    <strong>🚫 The external script is blocked</strong>
+    <span class="note">Either JavaScript blocking is on, or the script could not load.</span>
+  </div>
+  <script src="assets/test-script.js"></script>
+  <p class="verdict">
+    Blocking JavaScript saves a lot of data, but <strong>many sites stop working</strong>.
+    It is usually best to leave it allowed and turn it off only when you need to.
+    When you want to allow it for just one page, use <span class="kbd">•••</span> →
+    <strong>Allow JavaScript on This Page and Reload</strong><span class="pro-tag">Pro</span>.
+  </p>
+
+  <h3 id="t-popup">6. Pop-ups</h3>
+  <div class="test-box">
+    <a href="popup-target-en.html" target="_blank" rel="noopener">Try a link that opens a new window</a>
+    <span class="note">Tapping it asks for a new window.</span>
+  </div>
+  <p class="verdict">
+    <b>Blocked:</b> “Pop-up blocked” appears at the bottom and nothing opens.<br>
+    <b>Allowed:</b> the page opens in a new tab.
+  </p>
+
+  <hr class="sep">
+
+  <h2>Changing settings</h2>
+  <ol class="steps">
+    <li>Tap <span class="kbd">•••</span> at the bottom of the screen</li>
+    <li>Choose <strong>Settings</strong></li>
+    <li>Flip any toggle under “Resources to Block” (changes apply immediately)</li>
+    <li>Come back here and tap <span class="kbd">↻</span> to reload and see the difference</li>
+  </ol>
+  <p>
+    You can switch the search engine between <strong>Google</strong> and <strong>Yahoo! JAPAN</strong>.
+  </p>
+
+  <h2>What Pro adds</h2>
+  <ul>
+    <li><strong>Press and hold to show an image</strong><span class="pro-tag">Pro</span><br>
+      Press and hold a blocked image to load <strong>just that one image</strong>.
+      Normal blocking resumes as soon as you navigate away, so you use very little data.
+      If you would rather keep the standard iOS link preview, you can switch this off in Settings.</li>
+    <li><strong>Per-site settings</strong><span class="pro-tag">Pro</span><br>
+      Save exceptions per domain, such as “allow images on this site only”.
+      Find it under <span class="kbd">•••</span> → <strong>Settings for This Site</strong>.</li>
+    <li><strong>Allow JavaScript on one page</strong><span class="pro-tag">Pro</span><br>
+      Reload a broken page with JavaScript allowed, just that once.
+      It reverts automatically on the next page you open.</li>
+  </ul>
+
+  <h2>Questions</h2>
+  <h3>The page is blank or looks broken</h3>
+  <p>
+    Usually that is the stylesheet or JavaScript blocking. Try
+    <span class="kbd">•••</span> → <strong>Allow JavaScript on This Page and Reload</strong><span class="pro-tag">Pro</span>,
+    or turn the matching toggle off in Settings.
+  </p>
+  <h3>I cannot sign in to a site</h3>
+  <p>Turn JavaScript blocking off and try again.</p>
+  <h3>How much data will I actually save?</h3>
+  <p>
+    It depends on the site, but on image-heavy pages most of the download is images.
+    Blocking <strong>images only</strong> is the sweet spot: big savings, and very little breaks.
+  </p>
+
+  <hr class="sep">
+  <p>
+    <a class="backlink" href="index.html">← Home</a><br>
+    <a href="privacy.html">Privacy Policy</a> ／
+    <a href="support.html">Support</a>
+  </p>
+
+  <footer>
+    © 2026 モジブラ / T-Browser<br>
+    <span style="font-size:12px">
+      Test font: Press Start 2P (SIL Open Font License 1.1) —
+      <a href="assets/OFL.txt">license</a>
+    </span>
+  </footer>
+</main>
+</body>
+</html>
