@@ -14,10 +14,10 @@
   'use strict';
 
   var FORM = {
-    action: 'https://docs.google.com/forms/d/e/FORM_ID/formResponse',
-    kind: 'entry.0',
-    comment: 'entry.0',
-    data: 'entry.0'
+    action: 'https://docs.google.com/forms/d/e/1FAIpQLScAchp-66nGCPBZJWQm3rp_YliMJWAvRY6j0vGS42stCffaXA/formResponse',
+    kind: 'entry.1435189910',     // 種類
+    comment: 'entry.559086219',   // コメント
+    data: 'entry.1905713373'      // 報告データ
   };
 
   var LABELS = {
