@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Report a Bug — T-Browser</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .choice { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 16px; }
+  .choice input { width: 20px; height: 20px; margin: 0; }
+  .note { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 6px 0; }
+  textarea {
+    width: 100%; font: inherit; font-size: 16px; color: var(--text); background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+  }
+  pre#preview {
+    white-space: pre-wrap; word-break: break-all; font-size: 12px; line-height: 1.5;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 12px; max-height: 45vh; overflow: auto; margin: 8px 0;
+  }
+  .send {
+    display: block; width: 100%; margin: 20px 0 8px; padding: 14px; border: none; border-radius: 12px;
+    background: var(--accent); color: #fff; font: inherit; font-size: 17px; font-weight: 700;
+  }
+  .send:disabled { opacity: 0.4; }
+  #domains-row { margin-top: 24px; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="inner">
+    <span class="app">T-Browser</span>
+    <span class="en">モジブラ</span>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Report a Bug</h1>
+
+  <div id="error" hidden>
+    <p>Could not read the report data. Please open “Report a Bug” again from the “•••” menu or Settings in the app.</p>
+  </div>
+
+  <div id="report" hidden>
+    <p class="updated">Review what will be sent, then tap “Send”. Nothing is sent until you do.</p>
+
+    <h2>Type</h2>
+    <label class="choice"><input type="radio" name="kind" value="longpress"> A blocked image doesn’t appear when I touch and hold it</label>
+    <label class="choice"><input type="radio" name="kind" value="layout"> A page looks broken</label>
+    <label class="choice"><input type="radio" name="kind" value="other"> Another problem with the app</label>
+    <p id="hint-page" class="note" hidden>For problems with a page, open that page and report from the “•••” menu at the bottom. That makes the cause easier to find.</p>
+
+    <h2>Comment (optional)</h2>
+    <textarea id="comment" rows="4" maxlength="1000" placeholder="What happened and what you were doing"></textarea>
+    <p class="note">Please don’t include your name, email address, or anything else that identifies you. We can’t reply to reports.</p>
+
+    <div id="domains-row">
+      <label class="choice"><input type="checkbox" id="domains"> Include site domains</label>
+      <p class="note">When off, site names are replaced with “this site”, “other site A”, and so on.</p>
+    </div>
+
+    <h2>What will be sent (full text)</h2>
+    <p id="note-nopage" class="note" hidden>Page information could not be collected. Only the app’s state will be sent.</p>
+    <p id="note-partial" class="note" hidden>Some page information could not be collected.</p>
+    <p id="note-trimmed" class="note" hidden>Some lists were shortened because they were too long.</p>
+    <pre id="preview"></pre>
+    <p class="note">Page text, full URLs, and anything you typed on the page are not included.</p>
+
+    <button type="button" id="send" class="send">Send</button>
+    <p id="status-notready" class="note" hidden>Not available yet. Reports can’t be sent from this page yet.</p>
+    <p class="note">Reports are sent to a Google Form. After sending, tap “Done” at the top left to return to the app.
+      See the <a href="privacy.html">Privacy Policy</a> for details.</p>
+  </div>
+
+  <footer>© 2026 モジブラ / T-Browser</footer>
+</main>
+<script src="report.js"></script>
+</body>
+</html>

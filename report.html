@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>アプリの不具合を報告 — モジブラ</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .choice { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 16px; }
+  .choice input { width: 20px; height: 20px; margin: 0; }
+  .note { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 6px 0; }
+  textarea {
+    width: 100%; font: inherit; font-size: 16px; color: var(--text); background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px;
+  }
+  pre#preview {
+    white-space: pre-wrap; word-break: break-all; font-size: 12px; line-height: 1.5;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 12px; max-height: 45vh; overflow: auto; margin: 8px 0;
+  }
+  .send {
+    display: block; width: 100%; margin: 20px 0 8px; padding: 14px; border: none; border-radius: 12px;
+    background: var(--accent); color: #fff; font: inherit; font-size: 17px; font-weight: 700;
+  }
+  .send:disabled { opacity: 0.4; }
+  #domains-row { margin-top: 24px; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="inner">
+    <span class="app">モジブラ</span>
+    <span class="en">T-Browser</span>
+  </div>
+</header>
+<main class="wrap">
+  <h1>アプリの不具合を報告</h1>
+
+  <div id="error" hidden>
+    <p>報告データを読み込めませんでした。アプリの「•••」または「設定」から、もう一度「アプリの不具合を報告」を開いてください。</p>
+  </div>
+
+  <div id="report" hidden>
+    <p class="updated">送る内容を確かめてから「送信する」を押してください。押すまで、どこにも送られません。</p>
+
+    <h2>種類</h2>
+    <label class="choice"><input type="radio" name="kind" value="longpress"> 長押しで画像が出ない</label>
+    <label class="choice"><input type="radio" name="kind" value="layout"> ページの表示が崩れる</label>
+    <label class="choice"><input type="radio" name="kind" value="other"> その他のアプリの不具合</label>
+    <p id="hint-page" class="note" hidden>ページに関わる不具合は、そのページを開いて画面下の「•••」から報告すると、原因を調べやすくなります。</p>
+
+    <h2>コメント（任意）</h2>
+    <textarea id="comment" rows="4" maxlength="1000" placeholder="起きたこと、そのとき操作したことなど"></textarea>
+    <p class="note">お名前やメールアドレスなど、個人を特定できる情報は書かないでください。報告への返信はできません。</p>
+
+    <div id="domains-row">
+      <label class="choice"><input type="checkbox" id="domains"> サイトのドメインを含める</label>
+      <p class="note">OFF のときは、サイトの名前を「このサイト」「別サイトA」などに置き換えて送ります。</p>
+    </div>
+
+    <h2>送る内容（全文）</h2>
+    <p id="note-nopage" class="note" hidden>ページの情報を取得できませんでした。アプリの状態だけを送ります。</p>
+    <p id="note-partial" class="note" hidden>ページの情報の一部を取得できませんでした。</p>
+    <p id="note-trimmed" class="note" hidden>大きすぎるため、一覧の一部を省いています。</p>
+    <pre id="preview"></pre>
+    <p class="note">ページの文章、完全な URL、入力した内容は含まれません。</p>
+
+    <button type="button" id="send" class="send">送信する</button>
+    <p id="status-notready" class="note" hidden>準備中です。この画面からはまだ送信できません。</p>
+    <p class="note">送信先は Google フォームです。送信後の画面で左上の「完了」を押すと、アプリに戻れます。
+      取り扱いは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+  </div>
+
+  <footer>© 2026 モジブラ / T-Browser</footer>
+</main>
+<script src="report.js"></script>
+</body>
+</html>
